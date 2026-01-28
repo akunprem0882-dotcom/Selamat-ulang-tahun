@@ -46,6 +46,13 @@ body{
 }
 @keyframes blink{50%{border-color:transparent}}
 
+/* TEKS AWAL */
+#teksAwal{
+  font-size:14px;
+  margin-top:8px;
+  opacity:.9;
+}
+
 /* KUE */
 #cake{
   font-size:80px;
@@ -58,6 +65,18 @@ body{
   0%{opacity:1}
   50%{opacity:.6}
   100%{opacity:1}
+}
+
+/* PESAN */
+#pesan{
+  display:none;
+  margin-top:10px;
+  font-size:14px;
+  animation:fadeIn 1s;
+}
+@keyframes fadeIn{
+  from{opacity:0;transform:scale(.9)}
+  to{opacity:1;transform:scale(1)}
 }
 
 /* SLIDER FOTO */
@@ -123,26 +142,33 @@ button{
 </audio>
 
 <div class="box">
+  <!-- TEKS MENGETIK -->
   <div id="typing"></div>
+
+  <!-- TEKS AWAL -->
+  <div id="teksAwal">
+    Revalina Rosanda Wijaya
+    Hari ini hari yang spesialmu 🤍<br>
+    Ada kejutan kecil buat kamu 🎁
+  </div>
 
   <!-- KUE -->
   <div id="cake">
-    🎂<span id="lilin" class="flame">🔥</span>
+    🎂 <span id="lilin" class="flame">🔥</span>
   </div>
 
-  <button onclick="toggleMusik()">🎵 Lagu</button>
-
-  <div style="font-size:14px;margin-top:10px">
-    Sebelum nya klik dulu Lagu nya yah sayang dan jangan lupa Volume Hpnya di besarkan 
-    Ada pesan spesial untukmu sayangku di buka ya 🤍
-  </div>
+  <button onclick="toggleMusik()">🎵 Play / Pause Lagu</button>
 
   <button onclick="bukaPesan()">💌 Pesan Spesial</button>
 
-    <div id="pesan"> sayang
-    <p>Kamu itu sangat berarti buat aku 🤍</p>
-    </div>
-  
+  <!-- PESAN SPESIAL -->
+  <div id="pesan">
+    Di hari ulang tahunmu ini 🎉<br>
+    semoga kamu selalu sehat,<br>
+    bahagia, dan dikelilingi<br>
+    orang-orang yang sayang kamu 🤍
+  </div>
+
   <!-- PILIHAN -->
   <div id="pilihan" style="display:none">
     <p>Kamu mencintai aku?</p>
@@ -150,11 +176,12 @@ button{
     <button id="kabur">💔 Tidak Mencintai</button>
   </div>
 
+  <!-- BALASAN -->
   <div id="balasan" style="display:none">
     <h3>🤍 Aku juga mencintai 🤍</h3>
   </div>
 
-  <!-- FOTO BARU MUNCUL SETELAH CINTA -->
+  <!-- FOTO MUNCUL TERAKHIR -->
   <div class="slider" id="fotoSlider">
     <div class="slide"><img src="foto1.jpg"></div>
     <div class="slide"><img src="foto2.jpg"></div>
@@ -183,7 +210,8 @@ function toggleMusik(){
 
 /* PESAN */
 function bukaPesan(){
-  document.getElementById("lilin").style.display="none"; // lilin padam
+  document.getElementById("lilin").style.display="none";
+  document.getElementById("pesan").style.display="block";
   document.getElementById("pilihan").style.display="block";
   confetti();
 }
