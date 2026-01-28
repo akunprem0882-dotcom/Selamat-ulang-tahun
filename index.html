@@ -2,117 +2,149 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Selamat Ulang Tahun 🎉</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Selamat Ulang Tahun</title>
 
 <style>
 body {
   margin: 0;
   height: 100vh;
-  overflow: hidden;
-  background: url('foto.jpg') center/cover no-repeat;
-  background-color:black;
+  background: linear-gradient(135deg,#ff758c,#ff7eb3);
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: Arial, sans-serif;
+  overflow: hidden;
 }
 
-/* CARD */
 .box {
-  background: rgba(0,0,0,0.65);
-  padding: 25px;
-  border-radius: 18px;
-  color: white;
+  background: rgba(0,0,0,0.6);
+  padding: 20px;
+  border-radius: 20px;
   text-align: center;
-  width: 85%;
-  max-width: 400px;
-  animation: fadeIn 1.5s ease;
-  z-index: 2;
+  color: white;
+  width: 90%;
+  max-width: 320px;
+  animation: fadeIn 2s;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1); }
+/* TEKS BERGERAK */
+.typing {
+  font-size: 22px;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid white;
+  width: 0;
+  margin: auto;
+  animation: typing 4s steps(30,end) forwards, blink 0.8s infinite;
+  text-shadow: 0 0 10px #ffb3c6;
 }
 
-/* BUTTON */
+/* SLIDER FOTO */
+.slider {
+  margin-top: 15px;
+  width: 100%;
+  height: 200px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  animation: slideShow 12s infinite;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.slide:nth-child(1) { animation-delay: 0s; }
+.slide:nth-child(2) { animation-delay: 4s; }
+.slide:nth-child(3) { animation-delay: 8s; }
+
 button {
   margin-top: 15px;
-  padding: 10px 22px;
+  padding: 10px 20px;
   border: none;
   border-radius: 20px;
   background: #ff4081;
   color: white;
   font-size: 16px;
-  cursor: pointer;
 }
 
-/* PESAN SPESIAL */
 #pesan {
   display: none;
   margin-top: 15px;
-  line-height: 1.6;
-  animation: pesanMuncul 1s ease forwards;
+  animation: fadeIn 1.5s;
 }
 
-@keyframes pesanMuncul {
-  from { opacity: 0; transform: scale(0.8); }
-  to { opacity: 1; transform: scale(1); }
+/* ANIMASI */
+@keyframes fadeIn {
+  from {opacity: 0; transform: scale(0.9);}
+  to {opacity: 1; transform: scale(1);}
 }
 
-/* BALON */
-.balon {
-  position: absolute;
-  bottom: -100px;
-  font-size: 30px;
-  animation: naik 8s linear infinite;
-  opacity: 0.8;
+@keyframes typing {
+  to { width: 100%; }
 }
 
-@keyframes naik {
-  from { transform: translateY(0); }
-  to { transform: translateY(-120vh); }
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+
+@keyframes slideShow {
+  0% {opacity: 0; transform: scale(1.1);}
+  10% {opacity: 1; transform: scale(1);}
+  30% {opacity: 1;}
+  40% {opacity: 0; transform: scale(0.9);}
+  100% {opacity: 0;}
 }
 </style>
 </head>
 
 <body>
 
-<!-- MUSIK -->
-<audio id="lagu" autoplay loop>
+<!-- MUSIK OTOMATIS -->
+<audio autoplay loop>
   <source src="musik.mp3" type="audio/mpeg">
 </audio>
 
-<!-- BALON -->
-<div class="balon" style="left:10%;">🎈</div>
-<div class="balon" style="left:30%; animation-delay:2s;">🎈</div>
-<div class="balon" style="left:50%; animation-delay:4s;">🎈</div>
-<div class="balon" style="left:70%; animation-delay:1s;">🎈</div>
-<div class="balon" style="left:90%; animation-delay:3s;">🎈</div>
-
 <div class="box">
-  <h1>🎂 Selamat Ulang Tahun 🎂</h1>
+  <div class="typing">🎉 Selamat Ulang Tahun 🎉</div>
 
-  <p>Ada pesan spesial buat kamu 💖</p>
+  <div class="slider">
+    <div class="slide">
+      <img src="foto1.jpg">
+    </div>
+    <div class="slide">
+      <img src="foto2.jpg">
+    </div>
+    <div class="slide">
+      <img src="foto3.jpg">
+    </div>
+  </div>
 
-  <button onclick="tampilPesan()">💌 Klik Pesan Spesial</button>
+  <button onclick="bukaPesan()">💌 Pesan Spesial</button>
 
-  <p id="pesan">
-    Selamat ulang tahun 🎉<br>
-    Semoga hari ini penuh kebahagiaan.<br>
-    Semoga semua impianmu tercapai.<br>
-    Terima kasih sudah menjadi orang yang berarti 🤍
-  </p>
-
-  <button onclick="document.getElementById('lagu').play()">
-    ▶ Putar Musik
-  </button>
+  <div id="pesan">
+    <p>
+      Semoga hari ini penuh senyum,  
+      hidupmu selalu diberkahi,  
+      dan semua mimpimu tercapai ❤️
+    </p>
+  </div>
 </div>
 
 <script>
-function tampilPesan() {
-  document.getElementById("pesan").style.display = "block";
+function bukaPesan(){
+  document.getElementById("pesan").style.display="block";
 }
 </script>
 
