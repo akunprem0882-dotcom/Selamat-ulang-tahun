@@ -24,28 +24,27 @@ body {
   text-align: center;
   color: white;
   width: 90%;
-  max-width: 320px;
-  animation: fadeIn 2s;
+  max-width: 340px;
+  animation: fadeIn 1.5s;
 }
 
 /* TEKS BERGERAK */
 .typing {
   font-size: 22px;
   font-weight: bold;
-  white-space: nowrap;
   overflow: hidden;
+  white-space: nowrap;
   border-right: 3px solid white;
   width: 0;
   margin: auto;
   animation: typing 4s steps(30,end) forwards, blink 0.8s infinite;
-  text-shadow: 0 0 10px #ffb3c6;
 }
 
 /* SLIDER FOTO */
 .slider {
   margin-top: 15px;
   width: 100%;
-  height: 200px;
+  height: 240px; /* FOTO DIPERBESAR */
   position: relative;
   overflow: hidden;
   border-radius: 15px;
@@ -62,33 +61,39 @@ body {
 .slide img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover; /* FOTO LEBIH BESAR */
 }
 
-.slide:nth-child(1) { animation-delay: 0s; }
-.slide:nth-child(2) { animation-delay: 4s; }
-.slide:nth-child(3) { animation-delay: 8s; }
+.slide:nth-child(1){animation-delay:0s;}
+.slide:nth-child(2){animation-delay:4s;}
+.slide:nth-child(3){animation-delay:8s;}
 
 button {
-  margin-top: 15px;
+  margin-top: 12px;
   padding: 10px 20px;
   border: none;
   border-radius: 20px;
   background: #ff4081;
   color: white;
-  font-size: 16px;
+  font-size: 15px;
+}
+
+.keterangan {
+  font-size: 14px;
+  margin-top: 10px;
+  opacity: 0.9;
 }
 
 #pesan {
   display: none;
   margin-top: 15px;
-  animation: fadeIn 1.5s;
+  animation: fadeIn 1s;
 }
 
 /* ANIMASI */
 @keyframes fadeIn {
-  from {opacity: 0; transform: scale(0.9);}
-  to {opacity: 1; transform: scale(1);}
+  from {opacity:0; transform:scale(0.9);}
+  to {opacity:1; transform:scale(1);}
 }
 
 @keyframes typing {
@@ -100,19 +105,19 @@ button {
 }
 
 @keyframes slideShow {
-  0% {opacity: 0; transform: scale(1.1);}
-  10% {opacity: 1; transform: scale(1);}
-  30% {opacity: 1;}
-  40% {opacity: 0; transform: scale(0.9);}
-  100% {opacity: 0;}
+  0% {opacity:0; transform:scale(1.1);}
+  10% {opacity:1; transform:scale(1);}
+  30% {opacity:1;}
+  40% {opacity:0; transform:scale(0.95);}
+  100% {opacity:0;}
 }
 </style>
 </head>
 
 <body>
 
-<!-- MUSIK OTOMATIS -->
-<audio autoplay loop>
+<!-- MUSIK -->
+<audio id="musik">
   <source src="musik.mp3" type="audio/mpeg">
 </audio>
 
@@ -120,24 +125,29 @@ button {
   <div class="typing">🎉 Selamat Ulang Tahun 🎉</div>
 
   <div class="slider">
-    <div class="slide">
-      <img src="foto1.jpg">
-    </div>
-    <div class="slide">
-      <img src="foto2.jpg">
-    </div>
-    <div class="slide">
-      <img src="foto3.jpg">
-    </div>
+    <div class="slide"><img src="foto1.jpg"></div>
+    <div class="slide"><img src="foto2.jpg"></div>
+    <div class="slide"><img src="foto3.jpg"></div>
+  </div>
+
+  <!-- TOMBOL LAGU -->
+  <button onclick="toggleMusik()">🎵 Play / Pause Lagu</button>
+
+  <!-- KATA SEBELUM PESAN -->
+  <div class="keterangan">
+    selamat Ulang tahun ke 21 yah sayangku
+    Sebelum di Klik, Klik dulu yah lagu nyaa
+    Klik tombol di bawah ini ya, ada pesan spesial buat kamu 🤍
   </div>
 
   <button onclick="bukaPesan()">💌 Pesan Spesial</button>
 
   <div id="pesan">
     <p>
-      Semoga hari ini penuh senyum,  
-      hidupmu selalu diberkahi,  
-      dan semua mimpimu tercapai ❤️
+      Semoga di usia baru ini,  
+      kamu selalu sehat, bahagia,  
+      dan semua impianmu terwujud ✨  
+      Jangan pernah berhenti tersenyum 🤍
     </p>
   </div>
 </div>
@@ -145,6 +155,15 @@ button {
 <script>
 function bukaPesan(){
   document.getElementById("pesan").style.display="block";
+}
+
+function toggleMusik(){
+  const musik = document.getElementById("musik");
+  if(musik.paused){
+    musik.play();
+  } else {
+    musik.pause();
+  }
 }
 </script>
 
