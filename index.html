@@ -6,6 +6,7 @@
 <title>Selamat Ulang Tahun</title>
 
 <style>
+/* ===== BACKGROUND ===== */
 body {
   margin: 0;
   height: 100vh;
@@ -17,7 +18,30 @@ body {
   overflow: hidden;
 }
 
+/* HATI JATUH */
+.heart {
+  position: fixed;
+  bottom: -20px;
+  font-size: 20px;
+  animation: floatUp linear infinite;
+  opacity: 0.7;
+}
+
+@keyframes floatUp {
+  from {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-110vh) scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* ===== BOX UTAMA ===== */
 .box {
+  position: relative;
+  z-index: 10;
   background: rgba(0,0,0,0.6);
   padding: 20px;
   border-radius: 20px;
@@ -28,23 +52,22 @@ body {
   animation: fadeIn 1.5s;
 }
 
-/* TEKS BERGERAK */
+/* TEKS NGETIK */
 .typing {
   font-size: 22px;
   font-weight: bold;
-  overflow: hidden;
-  white-space: nowrap;
+  min-height: 30px;
   border-right: 3px solid white;
-  width: 0;
-  margin: auto;
-  animation: typing 4s steps(30,end) forwards, blink 0.8s infinite;
+  display: inline-block;
+  padding-right: 5px;
+  animation: blink 0.8s infinite;
 }
 
 /* SLIDER FOTO */
 .slider {
   margin-top: 15px;
   width: 100%;
-  height: 240px; /* FOTO DIPERBESAR */
+  height: 240px;
   position: relative;
   overflow: hidden;
   border-radius: 15px;
@@ -61,7 +84,7 @@ body {
 .slide img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* FOTO LEBIH BESAR */
+  object-fit: cover;
 }
 
 .slide:nth-child(1){animation-delay:0s;}
@@ -96,10 +119,6 @@ button {
   to {opacity:1; transform:scale(1);}
 }
 
-@keyframes typing {
-  to { width: 100%; }
-}
-
 @keyframes blink {
   50% { border-color: transparent; }
 }
@@ -116,13 +135,13 @@ button {
 
 <body>
 
-<!-- MUSIK -->
-<audio id="musik">
+<!-- MUSIK LOOP -->
+<audio id="musik" loop>
   <source src="musik.mp3" type="audio/mpeg">
 </audio>
 
 <div class="box">
-  <div class="typing">🎉 Selamat Ulang Tahun 🎉</div>
+  <div id="typing" class="typing"></div>
 
   <div class="slider">
     <div class="slide"><img src="foto1.jpg"></div>
@@ -130,13 +149,10 @@ button {
     <div class="slide"><img src="foto3.jpg"></div>
   </div>
 
-  <!-- TOMBOL LAGU -->
   <button onclick="toggleMusik()">🎵 Play / Pause Lagu</button>
 
-  <!-- KATA SEBELUM PESAN -->
   <div class="keterangan">
-    selamat Ulang tahun ke 21 yah sayangku
-    Sebelum di Klik, Klik dulu yah lagu nyaa
+    hi sayang
     Klik tombol di bawah ini ya, ada pesan spesial buat kamu 🤍
   </div>
 
@@ -144,27 +160,53 @@ button {
 
   <div id="pesan">
     <p>
-      Semoga di usia baru ini,  
-      kamu selalu sehat, bahagia,  
-      dan semua impianmu terwujud ✨  
+      Semoga di usia baru ini,<br>
+      kamu selalu sehat dan bahagia,<br>
+      semua impianmu tercapai ✨<br>
       Jangan pernah berhenti tersenyum 🤍
     </p>
   </div>
 </div>
 
 <script>
+/* ===== TEKS NGETIK ===== */
+const text = "🎉 Selamat Ulang Tahun 🎉";
+let index = 0;
+
+function typeText() {
+  if (index < text.length) {
+    document.getElementById("typing").innerHTML += text.charAt(index);
+    index++;
+    setTimeout(typeText, 120);
+  }
+}
+window.onload = typeText;
+
+/* ===== PESAN ===== */
 function bukaPesan(){
   document.getElementById("pesan").style.display="block";
 }
 
+/* ===== MUSIK ===== */
 function toggleMusik(){
   const musik = document.getElementById("musik");
-  if(musik.paused){
-    musik.play();
-  } else {
-    musik.pause();
-  }
+  musik.paused ? musik.play() : musik.pause();
 }
+
+/* ===== BACKGROUND HATI ===== */
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "🤍";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = (3 + Math.random() * 4) + "s";
+  document.body.appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 7000);
+}
+setInterval(createHeart, 500);
 </script>
 
 </body>
