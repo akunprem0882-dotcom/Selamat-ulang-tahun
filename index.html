@@ -6,11 +6,13 @@
 <title>Selamat Ulang Tahun</title>
 
 <style>
-/* ===== BACKGROUND ===== */
+/* ===== BACKGROUND GERAK ===== */
 body {
   margin: 0;
   height: 100vh;
-  background: linear-gradient(135deg,#ff758c,#ff7eb3);
+  background: linear-gradient(270deg,#ff758c,#ff7eb3,#ffd1dc);
+  background-size: 600% 600%;
+  animation: bgMove 10s ease infinite;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -18,30 +20,30 @@ body {
   overflow: hidden;
 }
 
-/* HATI JATUH */
+@keyframes bgMove {
+  0% {background-position:0% 50%;}
+  50% {background-position:100% 50%;}
+  100% {background-position:0% 50%;}
+}
+
+/* ===== HATI MELAYANG ===== */
 .heart {
   position: fixed;
   bottom: -20px;
-  font-size: 20px;
+  font-size: 18px;
   animation: floatUp linear infinite;
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 @keyframes floatUp {
-  from {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-  }
-  to {
-    transform: translateY(-110vh) scale(1.5);
-    opacity: 0;
-  }
+  from {transform: translateY(0); opacity:1;}
+  to {transform: translateY(-110vh); opacity:0;}
 }
 
-/* ===== BOX UTAMA ===== */
+/* ===== BOX ===== */
 .box {
   position: relative;
-  z-index: 10;
+  z-index: 5;
   background: rgba(0,0,0,0.6);
   padding: 20px;
   border-radius: 20px;
@@ -49,23 +51,26 @@ body {
   color: white;
   width: 90%;
   max-width: 340px;
-  animation: fadeIn 1.5s;
 }
 
-/* TEKS NGETIK */
-.typing {
+/* ===== TEKS NGETIK ===== */
+#typing {
   font-size: 22px;
   font-weight: bold;
-  min-height: 30px;
+  min-height: 32px;
+  margin-bottom: 10px;
   border-right: 3px solid white;
-  display: inline-block;
   padding-right: 5px;
-  animation: blink 0.8s infinite;
+  animation: cursorBlink 0.8s infinite;
 }
 
-/* SLIDER FOTO */
+@keyframes cursorBlink {
+  50% {border-color: transparent;}
+}
+
+/* ===== FOTO SLIDE ===== */
 .slider {
-  margin-top: 15px;
+  margin-top: 10px;
   width: 100%;
   height: 240px;
   position: relative;
@@ -91,8 +96,22 @@ body {
 .slide:nth-child(2){animation-delay:4s;}
 .slide:nth-child(3){animation-delay:8s;}
 
-button {
+@keyframes slideShow {
+  0% {opacity:0; transform:scale(1.1);}
+  10% {opacity:1; transform:scale(1);}
+  30% {opacity:1;}
+  40% {opacity:0;}
+  100% {opacity:0;}
+}
+
+.keterangan {
+  font-size: 14px;
   margin-top: 12px;
+  opacity: 0.9;
+}
+
+button {
+  margin-top: 10px;
   padding: 10px 20px;
   border: none;
   border-radius: 20px;
@@ -101,34 +120,9 @@ button {
   font-size: 15px;
 }
 
-.keterangan {
-  font-size: 14px;
-  margin-top: 10px;
-  opacity: 0.9;
-}
-
 #pesan {
   display: none;
-  margin-top: 15px;
-  animation: fadeIn 1s;
-}
-
-/* ANIMASI */
-@keyframes fadeIn {
-  from {opacity:0; transform:scale(0.9);}
-  to {opacity:1; transform:scale(1);}
-}
-
-@keyframes blink {
-  50% { border-color: transparent; }
-}
-
-@keyframes slideShow {
-  0% {opacity:0; transform:scale(1.1);}
-  10% {opacity:1; transform:scale(1);}
-  30% {opacity:1;}
-  40% {opacity:0; transform:scale(0.95);}
-  100% {opacity:0;}
+  margin-top: 12px;
 }
 </style>
 </head>
@@ -141,51 +135,52 @@ button {
 </audio>
 
 <div class="box">
-  <div id="typing" class="typing"></div>
 
+  <!-- TEKS NGETIK -->
+  <div id="typing"></div>
+
+  <!-- FOTO -->
   <div class="slider">
     <div class="slide"><img src="foto1.jpg"></div>
     <div class="slide"><img src="foto2.jpg"></div>
     <div class="slide"><img src="foto3.jpg"></div>
   </div>
 
+  <!-- TOMBOL MUSIK -->
   <button onclick="toggleMusik()">🎵 Play / Pause Lagu</button>
 
+  <!-- KATA SEBELUM PESAN -->
   <div class="keterangan">
-    hi sayang
-    Klik tombol di bawah ini ya, ada pesan spesial buat kamu 🤍
+    Ada satu pesan spesial yang aku simpan khusus buat kamu 🤍  
+    Klik tombol di bawah ini ya ✨
   </div>
 
+  <!-- PESAN SPESIAL -->
   <button onclick="bukaPesan()">💌 Pesan Spesial</button>
 
   <div id="pesan">
     <p>
-      Semoga di usia baru ini,<br>
-      kamu selalu sehat dan bahagia,<br>
-      semua impianmu tercapai ✨<br>
-      Jangan pernah berhenti tersenyum 🤍
+      Semoga di usia baru ini kamu selalu sehat 🤍<br>
+      Dikelilingi orang baik,<br>
+      dan semua impianmu tercapai ✨
     </p>
   </div>
+
 </div>
 
 <script>
-/* ===== TEKS NGETIK ===== */
+/* ===== TEKS NGETIK OTOMATIS ===== */
 const text = "🎉 Selamat Ulang Tahun 🎉";
-let index = 0;
+let i = 0;
 
-function typeText() {
-  if (index < text.length) {
-    document.getElementById("typing").innerHTML += text.charAt(index);
-    index++;
-    setTimeout(typeText, 120);
+function typeWriter() {
+  if (i < text.length) {
+    document.getElementById("typing").innerHTML += text.charAt(i);
+    i++;
+    setTimeout(typeWriter, 150);
   }
 }
-window.onload = typeText;
-
-/* ===== PESAN ===== */
-function bukaPesan(){
-  document.getElementById("pesan").style.display="block";
-}
+setTimeout(typeWriter, 500);
 
 /* ===== MUSIK ===== */
 function toggleMusik(){
@@ -193,20 +188,22 @@ function toggleMusik(){
   musik.paused ? musik.play() : musik.pause();
 }
 
-/* ===== BACKGROUND HATI ===== */
-function createHeart() {
-  const heart = document.createElement("div");
-  heart.className = "heart";
-  heart.innerHTML = "🤍";
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.animationDuration = (3 + Math.random() * 4) + "s";
-  document.body.appendChild(heart);
-
-  setTimeout(() => {
-    heart.remove();
-  }, 7000);
+/* ===== PESAN ===== */
+function bukaPesan(){
+  document.getElementById("pesan").style.display="block";
 }
-setInterval(createHeart, 500);
+
+/* ===== HATI BACKGROUND ===== */
+function heartBg(){
+  const h = document.createElement("div");
+  h.className = "heart";
+  h.innerHTML = "🤍";
+  h.style.left = Math.random()*100 + "vw";
+  h.style.animationDuration = (4 + Math.random()*4) + "s";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),8000);
+}
+setInterval(heartBg,600);
 </script>
 
 </body>
