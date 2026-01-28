@@ -4,44 +4,117 @@
 <meta charset="UTF-8">
 <title>Selamat Ulang Tahun 🎉</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
 body {
-  margin:0;
-  height:100vh;
-  background:url('foto.jpg') center/cover no-repeat;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-family:Arial;
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: url('foto.jpg') center/cover no-repeat;
+  background-color:black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
 }
+
+/* CARD */
 .box {
-  background:rgba(0,0,0,0.6);
-  padding:20px;
-  border-radius:15px;
-  color:white;
-  text-align:center;
+  background: rgba(0,0,0,0.65);
+  padding: 25px;
+  border-radius: 18px;
+  color: white;
+  text-align: center;
+  width: 85%;
+  max-width: 400px;
+  animation: fadeIn 1.5s ease;
+  z-index: 2;
 }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* BUTTON */
 button {
-  padding:10px 20px;
-  border:none;
-  border-radius:20px;
-  background:#ff4081;
-  color:white;
-  font-size:16px;
+  margin-top: 15px;
+  padding: 10px 22px;
+  border: none;
+  border-radius: 20px;
+  background: #ff4081;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* PESAN SPESIAL */
+#pesan {
+  display: none;
+  margin-top: 15px;
+  line-height: 1.6;
+  animation: pesanMuncul 1s ease forwards;
+}
+
+@keyframes pesanMuncul {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* BALON */
+.balon {
+  position: absolute;
+  bottom: -100px;
+  font-size: 30px;
+  animation: naik 8s linear infinite;
+  opacity: 0.8;
+}
+
+@keyframes naik {
+  from { transform: translateY(0); }
+  to { transform: translateY(-120vh); }
 }
 </style>
 </head>
+
 <body>
 
+<!-- MUSIK -->
 <audio id="lagu" autoplay loop>
   <source src="musik.mp3" type="audio/mpeg">
 </audio>
 
+<!-- BALON -->
+<div class="balon" style="left:10%;">🎈</div>
+<div class="balon" style="left:30%; animation-delay:2s;">🎈</div>
+<div class="balon" style="left:50%; animation-delay:4s;">🎈</div>
+<div class="balon" style="left:70%; animation-delay:1s;">🎈</div>
+<div class="balon" style="left:90%; animation-delay:3s;">🎈</div>
+
 <div class="box">
   <h1>🎂 Selamat Ulang Tahun 🎂</h1>
-  <p>Semoga hari ini penuh senyum dan bahagia 💖</p>
-  <button onclick="document.getElementById('lagu').play()">▶ Putar Musik</button>
+
+  <p>Ada pesan spesial buat kamu 💖</p>
+
+  <button onclick="tampilPesan()">💌 Klik Pesan Spesial</button>
+
+  <p id="pesan">
+    Selamat ulang tahun 🎉<br>
+    Semoga hari ini penuh kebahagiaan.<br>
+    Semoga semua impianmu tercapai.<br>
+    Terima kasih sudah menjadi orang yang berarti 🤍
+  </p>
+
+  <button onclick="document.getElementById('lagu').play()">
+    ▶ Putar Musik
+  </button>
 </div>
+
+<script>
+function tampilPesan() {
+  document.getElementById("pesan").style.display = "block";
+}
+</script>
 
 </body>
 </html>
