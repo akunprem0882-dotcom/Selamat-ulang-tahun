@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Selamat Ulang Tahun</title>
+<title>Ulang Tahun Spesial</title>
 
 <style>
 body{
@@ -11,7 +11,7 @@ body{
   height:100vh;
   background:linear-gradient(270deg,#ff758c,#ff7eb3,#ffd1dc);
   background-size:600% 600%;
-  animation:bgMove 10s ease infinite;
+  animation:bgMove 10s infinite;
   display:flex;
   justify-content:center;
   align-items:center;
@@ -32,7 +32,6 @@ body{
   color:white;
   width:90%;
   max-width:340px;
-  position:relative;
   z-index:5;
 }
 
@@ -47,14 +46,29 @@ body{
 }
 @keyframes blink{50%{border-color:transparent}}
 
-/* SLIDER */
+/* KUE */
+#cake{
+  font-size:80px;
+  margin:10px 0;
+}
+.flame{
+  animation:flicker .6s infinite;
+}
+@keyframes flicker{
+  0%{opacity:1}
+  50%{opacity:.6}
+  100%{opacity:1}
+}
+
+/* SLIDER FOTO */
 .slider{
   width:100%;
-  height:240px;
+  height:220px;
   overflow:hidden;
   border-radius:15px;
   position:relative;
-  margin-top:10px;
+  margin-top:15px;
+  display:none;
 }
 .slide{
   position:absolute;
@@ -87,12 +101,6 @@ button{
   background:#ff4081;
   color:white;
   font-size:14px;
-  position:relative;
-}
-
-#pesan,#pilihan,#balasan{
-  display:none;
-  margin-top:12px;
 }
 
 /* CONFETTI */
@@ -117,35 +125,40 @@ button{
 <div class="box">
   <div id="typing"></div>
 
-  <div class="slider">
-    <div class="slide"><img src="foto1.jpg"></div>
-    <div class="slide"><img src="foto2.jpg"></div>
-    <div class="slide"><img src="foto3.jpg"></div>
+  <!-- KUE -->
+  <div id="cake">
+    🎂<span id="lilin" class="flame">🔥</span>
   </div>
 
-  <button onclick="toggleMusik()">🎵 Play / Pause Lagu</button>
+  <button onclick="toggleMusik()">🎵 Lagu</button>
 
-  <div style="margin-top:10px;font-size:14px">
-    Klik dahulu lagunya sayang dan jangan lupa di besarkan yah volume hpnya
-    Ada satu pesan spesial yang aku simpan khusus buat kamu 🤍  
-    Klik tombol di bawah ini ya ✨
+  <div style="font-size:14px;margin-top:10px">
+    Sebelum nya klik dulu Lagu nya yah sayang dan jangan lupa Volume Hpnya di besarkan 
+    Ada pesan spesial untukmu sayangku di buka ya 🤍
   </div>
 
   <button onclick="bukaPesan()">💌 Pesan Spesial</button>
 
-  <div id="pesan">
+    <div id="pesan"> sayang
     <p>Kamu itu sangat berarti buat aku 🤍</p>
-  </div>
-
+    </div>
+  
   <!-- PILIHAN -->
-  <div id="pilihan">
+  <div id="pilihan" style="display:none">
     <p>Kamu mencintai aku?</p>
     <button onclick="jawabCinta()">💖 Sangat Mencintai</button><br>
     <button id="kabur">💔 Tidak Mencintai</button>
   </div>
 
-  <div id="balasan">
+  <div id="balasan" style="display:none">
     <h3>🤍 Aku juga mencintai 🤍</h3>
+  </div>
+
+  <!-- FOTO BARU MUNCUL SETELAH CINTA -->
+  <div class="slider" id="fotoSlider">
+    <div class="slide"><img src="foto1.jpg"></div>
+    <div class="slide"><img src="foto2.jpg"></div>
+    <div class="slide"><img src="foto3.jpg"></div>
   </div>
 </div>
 
@@ -170,14 +183,14 @@ function toggleMusik(){
 
 /* PESAN */
 function bukaPesan(){
-  document.getElementById("pesan").style.display="block";
+  document.getElementById("lilin").style.display="none"; // lilin padam
   document.getElementById("pilihan").style.display="block";
-  startConfetti();
+  confetti();
 }
 
 /* CONFETTI */
-function startConfetti(){
-  for(let i=0;i<35;i++){
+function confetti(){
+  for(let i=0;i<30;i++){
     const c=document.createElement("div");
     c.className="confetti";
     c.innerHTML=["🎉","✨","💖","🎊"][Math.floor(Math.random()*4)];
@@ -188,21 +201,20 @@ function startConfetti(){
   }
 }
 
-/* JAWABAN CINTA */
+/* CINTA */
 function jawabCinta(){
   document.getElementById("pilihan").style.display="none";
   document.getElementById("balasan").style.display="block";
+  document.getElementById("fotoSlider").style.display="block";
 }
 
 /* TOMBOL KABUR */
 const kabur=document.getElementById("kabur");
 kabur.addEventListener("mouseenter",kaburLari);
 kabur.addEventListener("touchstart",kaburLari);
-
 function kaburLari(){
-  const x=Math.random()*200-100;
-  const y=Math.random()*200-100;
-  kabur.style.transform=`translate(${x}px,${y}px)`;
+  kabur.style.transform=
+    `translate(${Math.random()*200-100}px,${Math.random()*200-100}px)`;
 }
 </script>
 
