@@ -24,6 +24,18 @@ body{
   100%{background-position:0% 50%}
 }
 
+/* GETAR */
+.shake{
+  animation:shake .4s;
+}
+@keyframes shake{
+  0%{transform:translateX(0)}
+  25%{transform:translateX(-6px)}
+  50%{transform:translateX(6px)}
+  75%{transform:translateX(-6px)}
+  100%{transform:translateX(0)}
+}
+
 .box{
   background:rgba(0,0,0,.6);
   padding:20px;
@@ -46,7 +58,7 @@ body{
 }
 @keyframes blink{50%{border-color:transparent}}
 
-/* TEKS AWAL */
+/* TEKS */
 #teksAwal{
   font-size:14px;
   margin-top:8px;
@@ -135,61 +147,47 @@ button{
 </style>
 </head>
 
-<body>
+<body onload="getarAwal()">
 
 <audio id="musik" loop>
   <source src="musik.mp3" type="audio/mpeg">
 </audio>
 
-<div class="box">
-  <!-- TEKS MENGETIK -->
+<div class="box" id="box">
   <div id="typing"></div>
 
-  <!-- TEKS AWAL -->
-  <div id="teksAwal">
-    Revalina Rosanda Wijaya
-  </div>
+  <div id="teksAwal">Revalina Rosanda Wijaya 🤍</div>
 
-  <!-- KUE -->
   <div id="cake">
     🎂 <span id="lilin" class="flame">🔥</span>
   </div>
-  
-<div id="teksAwal">
-    Hari ini hari Ulang tahunmu yang ke 21 🤍<br>
-    Ada kejutan kecil buat kamu 🎁
-</div>
-  
-  <button onclick="toggleMusik()">🎵 Play / Pause Lagu</button>
 
-  <button onclick="bukaPesan()">💌 Pesan Spesial</button>
-
-  <!-- PESAN SPESIAL -->
-  <div id="pesan">
-    Di hari ulang tahunmu ini 🎉<br>
-    semoga kamu selalu sehat,<br>
-    bahagia, dan dikelilingi<br>
-    orang-orang yang sayang kamu 🤍
-    Selamat ulang tahun sayang yang ke umur 21🥳🥳 udah tua yah, semoga sayang 
-    di beri umur yang panjang dan di beri rezeki yang berlimpah semoga nanti 
-    sayang di jauhkan dari maha bahaya dan petaka di hari kelahiran ini sayang 
-    bertambah tuaa dan bertambah cantik jangan pernah selingkuh yah dan jangan pernah 
-    ninggali aku yang gak ada apa apa ini semoga di hari esok kita cepat bersama yahh loveyouuuuu🤍 sayangkuu
+  <div id="teksAwal">
+    Hari ini ulang tahunmu ke 21 🤍<br>
+    Ada kado kecil buat kamu 🎁
   </div>
 
-  <!-- PILIHAN -->
+  <button onclick="toggleMusik()">🎵 Play / Pause Lagu</button>
+  <button onclick="bukaPesan()">💌 Pesan Spesial</button>
+
+  <div id="pesan">
+    Selamat ulang tahun sayang 🎉🤍<br>
+    Semoga kamu selalu sehat,<br>
+    bahagia, panjang umur,<br>
+    dan semua impianmu tercapai ✨<br><br>
+    Aku sayang kamu 🤍
+  </div>
+
   <div id="pilihan" style="display:none">
     <p>Kamu mencintai aku?</p>
     <button onclick="jawabCinta()">💖 Sangat Mencintai</button><br>
     <button id="kabur">💔 Tidak Mencintai</button>
   </div>
 
-  <!-- BALASAN -->
   <div id="balasan" style="display:none">
     <h3>🤍 Aku juga mencintai 🤍</h3>
   </div>
 
-  <!-- FOTO MUNCUL TERAKHIR -->
   <div class="slider" id="fotoSlider">
     <div class="slide"><img src="foto1.jpg"></div>
     <div class="slide"><img src="foto2.jpg"></div>
@@ -198,6 +196,19 @@ button{
 </div>
 
 <script>
+/* GETAR HP */
+function vibrate(ms){
+  if(navigator.vibrate){
+    navigator.vibrate(ms);
+  }
+}
+
+/* GETAR AWAL */
+function getarAwal(){
+  vibrate(200);
+  document.getElementById("box").classList.add("shake");
+}
+
 /* TYPING */
 const text="🎉 Selamat Ulang Tahun 🎉";
 let i=0;
@@ -218,6 +229,8 @@ function toggleMusik(){
 
 /* PESAN */
 function bukaPesan(){
+  vibrate([100,50,100]);
+  document.getElementById("box").classList.add("shake");
   document.getElementById("lilin").style.display="none";
   document.getElementById("pesan").style.display="block";
   document.getElementById("pilihan").style.display="block";
@@ -239,6 +252,7 @@ function confetti(){
 
 /* CINTA */
 function jawabCinta(){
+  vibrate(300);
   document.getElementById("pilihan").style.display="none";
   document.getElementById("balasan").style.display="block";
   document.getElementById("fotoSlider").style.display="block";
