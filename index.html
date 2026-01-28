@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Selamat Ulang Tahun 🎉</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+  margin:0;
+  height:100vh;
+  background:url('foto.jpg') center/cover no-repeat;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:Arial;
+}
+.box {
+  background:rgba(0,0,0,0.6);
+  padding:20px;
+  border-radius:15px;
+  color:white;
+  text-align:center;
+}
+button {
+  padding:10px 20px;
+  border:none;
+  border-radius:20px;
+  background:#ff4081;
+  color:white;
+  font-size:16px;
+}
+</style>
+</head>
+<body>
+
+<audio id="lagu" autoplay loop>
+  <source src="musik.mp3" type="audio/mpeg">
+</audio>
+
+<div class="box">
+  <h1>🎂 Selamat Ulang Tahun 🎂</h1>
+  <p>Semoga hari ini penuh senyum dan bahagia 💖</p>
+  <button onclick="document.getElementById('lagu').play()">▶ Putar Musik</button>
+</div>
+
+</body>
+</html>
