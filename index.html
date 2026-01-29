@@ -24,7 +24,7 @@ body{
   100%{background-position:0% 50%}
 }
 
-/* ================== KADO ================== */
+/* COVER KADO */
 #cover{
   position:fixed;
   inset:0;
@@ -36,18 +36,15 @@ body{
   color:white;
   z-index:999;
 }
-
 #gift{
   font-size:110px;
   cursor:pointer;
   animation:bounce 1.5s infinite;
 }
-
 @keyframes bounce{
   0%,100%{transform:scale(1)}
   50%{transform:scale(1.15)}
 }
-
 .openGift{
   animation:openGift .8s forwards;
 }
@@ -57,7 +54,7 @@ body{
   100%{transform:scale(0);opacity:0}
 }
 
-/* ================== BOX ================== */
+/* BOX */
 .box{
   background:rgba(0,0,0,.6);
   padding:20px;
@@ -67,18 +64,6 @@ body{
   width:90%;
   max-width:340px;
   display:none;
-}
-
-/* GETAR VISUAL */
-.shake{
-  animation:shake .4s;
-}
-@keyframes shake{
-  0%{transform:translateX(0)}
-  25%{transform:translateX(-6px)}
-  50%{transform:translateX(6px)}
-  75%{transform:translateX(-6px)}
-  100%{transform:translateX(0)}
 }
 
 /* TYPING */
@@ -101,12 +86,12 @@ body{
 /* PESAN */
 #pesan{display:none;font-size:14px;margin-top:10px}
 
-/* SLIDER */
+/* SLIDER FOTO */
 .slider{
   display:none;
   margin-top:15px;
   width:100%;
-  height:220px;
+  height:230px;
   overflow:hidden;
   border-radius:15px;
   position:relative;
@@ -116,12 +101,19 @@ body{
   width:100%;
   height:100%;
   opacity:0;
-  animation:slideShow 12s infinite;
+  animation:slideShow 20s infinite;
 }
-.slide img{width:100%;height:100%;object-fit:cover}
+.slide img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
 .slide:nth-child(1){animation-delay:0s}
 .slide:nth-child(2){animation-delay:4s}
 .slide:nth-child(3){animation-delay:8s}
+.slide:nth-child(4){animation-delay:12s}
+.slide:nth-child(5){animation-delay:16s}
+
 @keyframes slideShow{
   0%{opacity:0}
   10%{opacity:1}
@@ -137,6 +129,7 @@ button{
   border-radius:20px;
   background:#ff4081;
   color:white;
+  font-size:14px;
 }
 
 /* CONFETTI */
@@ -154,16 +147,18 @@ button{
 
 <body>
 
-<!-- KADO -->
+<!-- COVER -->
 <div id="cover">
   <div id="gift" onclick="bukaKado()">🎁</div>
-  <p>Klik kadonya ya 🤍</p>
+  <p>Klik kadonya 🤍</p>
 </div>
 
+<!-- MUSIK AUTO -->
 <audio id="musik" loop>
   <source src="musik.mp3" type="audio/mpeg">
 </audio>
 
+<!-- ISI -->
 <div class="box" id="box">
   <div id="typing"></div>
 
@@ -172,28 +167,20 @@ button{
   <div id="cake">🎂 <span id="lilin" class="flame">🔥</span></div>
 
   <div id="teksAwal">
-    Hari ini ulang tahunmu ke 21 🤍<br>
-    Sebelum membuka kejutan kecil buat kamu besarkan Suara Hpnya yah 🎉
+    Selamat ulang tahun ke 21 🎉<br>
+    Semoga hari ini penuh senyum 🤍
   </div>
 
-  <button onclick="toggleMusik()">🎵 Play Lagu</button>
   <button onclick="bukaPesan()">💌 Pesan Spesial</button>
 
   <div id="pesan">
-Di hari ulang tahunmu ini 🎉<br>
-    semoga kamu selalu sehat,<br>
-    bahagia, dan dikelilingi<br>
-    orang-orang yang sayang kamu 🤍
-    Selamat ulang tahun sayang yang ke umur 21🥳🥳 udah tua yah, semoga sayang 
-    di beri umur yang panjang dan di beri rezeki yang berlimpah semoga nanti 
-    sayang di jauhkan dari maha bahaya dan petaka di hari kelahiran ini sayang 
-    bertambah tuaa dan bertambah cantik jangan pernah selingkuh yah dan jangan pernah 
-    ninggali aku yang gak ada apa apa ini semoga di hari esok kita Tetap bersama yahh loveyouuuuu🤍 sayangkuu
+    Terima kasih sudah hadir di hidupku 🤍<br>
+    Semoga semua impianmu tercapai ✨
   </div>
 
   <div id="pilihan" style="display:none">
     <p>Kamu mencintai aku?</p>
-    <button onclick="jawabCinta()">🤍 Sangat Mencintai</button><br>
+    <button onclick="jawabCinta()">💖 Sangat Mencintai</button><br>
     <button id="kabur">💔 Tidak Mencintai</button>
   </div>
 
@@ -201,25 +188,30 @@ Di hari ulang tahunmu ini 🎉<br>
     <h3>🤍 Aku juga mencintai 🤍</h3>
   </div>
 
+  <!-- 5 FOTO -->
   <div class="slider" id="fotoSlider">
     <div class="slide"><img src="foto1.jpg"></div>
     <div class="slide"><img src="foto2.jpg"></div>
     <div class="slide"><img src="foto3.jpg"></div>
+    <div class="slide"><img src="foto4.jpg"></div>
+    <div class="slide"><img src="foto5.jpg"></div>
   </div>
 </div>
 
 <script>
-/* GETAR HP */
-function vibrate(ms){ if(navigator.vibrate) navigator.vibrate(ms); }
+function vibrate(ms){
+  if(navigator.vibrate) navigator.vibrate(ms);
+}
 
-/* BUKA KADO */
+/* BUKA KADO + AUTO PLAY */
 function bukaKado(){
   vibrate([100,50,100]);
-  const gift=document.getElementById("gift");
-  gift.classList.add("openGift");
+  document.getElementById("gift").classList.add("openGift");
+
   setTimeout(()=>{
     document.getElementById("cover").style.display="none";
     document.getElementById("box").style.display="block";
+    document.getElementById("musik").play();
     typeWriter();
   },800);
 }
@@ -232,12 +224,6 @@ function typeWriter(){
     document.getElementById("typing").innerHTML+=text.charAt(i++);
     setTimeout(typeWriter,150);
   }
-}
-
-/* MUSIK */
-function toggleMusik(){
-  const m=document.getElementById("musik");
-  m.paused?m.play():m.pause();
 }
 
 /* PESAN */
@@ -276,7 +262,7 @@ kabur.addEventListener("mouseenter",kaburLari);
 kabur.addEventListener("touchstart",kaburLari);
 function kaburLari(){
   kabur.style.transform=
-    `translate(${Math.random()*200-100}px,${Math.random()*200-100}px)`;
+  `translate(${Math.random()*200-100}px,${Math.random()*200-100}px)`;
 }
 </script>
 
